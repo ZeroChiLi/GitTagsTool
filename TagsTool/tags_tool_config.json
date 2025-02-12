@@ -1,0 +1,92 @@
+{
+    "GitURL":"https://xxx.git",
+    "RegionArr":["RegionTW","RegionKR","RegionSEA","RegionUS"],
+    "RegionCfg":
+    {
+        "RegionTW":
+        {
+            "Name": "港台",
+            "BranchList": ["ospatch","osrelease","osmaster"],
+			"VersionFile": "server/etc/server_version.txt",
+            "BuildPatchTagDic":
+            {
+                "tag_patch_android_os" : "安卓补丁",
+                "tag_patch_ios_os" : "iOS补丁"
+            },
+            "BuildFullTagDic":
+            {
+                "tag_full_android_os" : "安卓开发包",
+                "tag_full_android_mini_os" : "安卓微端开发包",
+                "tag_release_full_android_mini_os" : "安卓微端正式包",
+                "tag_full_ios_os" : "iOS开发包",
+                "tag_release_full_ios_os" : "iOS正式包"
+            }
+        },
+        "RegionKR":
+        {
+            "Name": "韩服",
+            "BranchList": [ "kr_patch", "kr_release", "kr_master" ],
+			"VersionFile": "server/etc/server_version.txt",
+            "BuildPatchTagDic":
+            {
+                "tag_patch_android_kr" : "安卓补丁",
+                "tag_patch_ios_kr" : "iOS补丁"
+            },
+            "BuildFullTagDic":
+            {
+                "tag_full_android_kr" : "安卓开发包",
+                "tag_full_android_mini_kr" : "安卓微端开发包",
+                "tag_release_full_android_mini_kr" : "安卓微端正式包",
+                "tag_full_ios_kr" : "iOS开发包",
+                "tag_release_full_ios_kr" : "iOS正式包",
+                "tag_full_android_build_lqa_kr" : "LQA包",
+                "tag_release_full_android_mini_build_onestore_kr" : "onestore正式包",
+                "tag_release_full_android_build_samsung_kr" : "samsung正式包"
+            }
+        },
+        "RegionSEA":
+        {
+            "Name": "东南亚",
+            "BranchList": [ "us_patch", "us_release", "us_master" ],
+			"VersionFile": "build_diff/sea/server/etc/server_version.txt",
+            "BuildPatchTagDic":
+            {
+                "tag_patch_android_sea" : "安卓补丁",
+                "tag_patch_ios_sea" : "iOS补丁"
+            },
+            "BuildFullTagDic":
+            {
+                "tag_full_android_sea" : "安卓开发包",
+                "tag_full_android_mini_sea" : "安卓微端开发包",
+                "tag_release_full_android_mini_sea" : "安卓微端正式包",
+                "tag_full_ios_sea" : "iOS开发包",
+                "tag_release_full_ios_sea" : "iOS正式包",
+                "tag_full_android_build_lqa_sea" : "LQA包",
+                "tag_release_full_android_build_huawei_mini_sea" : "huawei正式包",
+                "tag_release_full_android_build_vn_mini_sea" : "越南安卓正式包",
+                "tag_release_full_ios_build_vn_sea" : "越南iOS正式包"
+            }
+        },
+        "RegionUS":
+        {
+            "Name": "欧美",
+            "BranchList": [ "us_patch", "us_release", "us_master" ],
+			"VersionFile": "build_diff/us/server/etc/server_version.txt",
+            "BuildPatchTagDic":
+            {
+                "tag_patch_android_us" : "安卓补丁",
+                "tag_patch_ios_us" : "iOS补丁"
+            },
+            "BuildFullTagDic":
+            {
+                "tag_full_android_us" : "安卓开发包",
+                "tag_full_android_mini_us" : "安卓微端开发包",
+                "tag_release_full_android_mini_us" : "安卓微端正式包",
+                "tag_full_ios_us" : "iOS开发包",
+                "tag_release_full_ios_us" : "iOS正式包",
+                "tag_full_android_build_lqa_us" : "LQA包",
+                "tag_release_full_android_mini_build_aptoide_sea" : "aptoide正式包"
+            }
+        }
+    }
+}
