@@ -1,4 +1,8 @@
 # 打Tag傻瓜工具
+![image](https://github.com/user-attachments/assets/24739617-a4cf-4573-b918-088450d261d2)
+## 背景
+- 项目打包通过打tag，走CI/CD流程打包，不同tag规则打出不同包，因为手动打出现过几次意外（漏步骤，名字打错等），所以出了个傻瓜工具，点点点即可。
+- 工具采用C# + Winform。
 
 ## 简要说明
 
