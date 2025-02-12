@@ -20,3 +20,7 @@
    1. 先拉取一下对应分支：`git fetch origin {CurBranch}`
    2. 创建tag：`git tag {CurTag} origin/{CurBranch}`
    3. push tag到远端：`git push origin {CurTag}`
+  
+---
+## 下载
+- https://github.com/ZeroChiLi/GitTagsTool/releases
