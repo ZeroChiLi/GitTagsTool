@@ -301,6 +301,7 @@ namespace TagsTool
         private async void UpdateTagListAsync(List<string> tagList)
         {
             _cts?.Cancel();
+            _cts?.Dispose();
             _cts = new CancellationTokenSource();
             CancellationToken token = _cts.Token;
 
@@ -341,7 +342,7 @@ namespace TagsTool
 
                     if (!token.IsCancellationRequested)
                     {
-                        Invoke((Action)(() =>
+                        BeginInvoke((Action)(() =>
                         {
                             if (!token.IsCancellationRequested) // 确保 UI 仍然有效
                             {
@@ -477,7 +478,7 @@ namespace TagsTool
 
         private async Task ThreadSleepWithTime(int time = 10)
         {
-            await Task.Run(() => System.Threading.Thread.Sleep(time));
+            await Task.Delay(time);
         }
 
         private void PushTagFail()

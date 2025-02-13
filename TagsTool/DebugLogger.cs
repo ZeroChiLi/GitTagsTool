@@ -11,6 +11,7 @@ namespace TagsTool
     {
         public const string PROPS_FOLDER_PATH = @"%userprofile%\appdata\local\TagsTool";
         private static string _logFilePath;
+        private static readonly object _logLock = new object();
         public static string LogFilePath
         {
             get
@@ -33,7 +34,10 @@ namespace TagsTool
 
         public static void Log(string msg)
         {
-            _Log(msg);
+            lock (_logLock)
+            {
+                _Log(msg);
+            }
         }
 
         public static void Error(string msg)

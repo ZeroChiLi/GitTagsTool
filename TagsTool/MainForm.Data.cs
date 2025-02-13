@@ -192,15 +192,15 @@ namespace TagsTool
             // 筛选符合条件的标签
             var filteredTags = tags
                 .Where(tag => tag.Contains(prefix)) // 筛选包含指定前缀的标签
-                //.Select(tag => new
-                //{
-                //    FullTag = tag,
-                    //TimeSuffix = ExtractTimeSuffix(tag) // 提取时间后缀
-                //})
+                .Select(tag => new
+                {
+                    FullTag = tag,
+                    TimeSuffix = ExtractTimeSuffix(tag) // 提取时间后缀
+                })
                 //.Where(tag => tag.TimeSuffix != null) // 过滤掉无法提取时间的标签
-                //.OrderByDescending(tag => tag.TimeSuffix) // 按时间降序排序
+                .OrderByDescending(tag => tag.TimeSuffix) // 按时间降序排序
                 //.Take(10) // 取前10个
-                //.Select(tag => tag.FullTag)
+                .Select(tag => tag.FullTag)
                 .ToList();
 
             return filteredTags;
@@ -212,6 +212,7 @@ namespace TagsTool
             _remoteTagList.Clear();
             _remoteBranchList.Clear();
             _cts?.Cancel();
+            _cts?.Dispose();
             _fetchGitDetail = false;
         }
 
