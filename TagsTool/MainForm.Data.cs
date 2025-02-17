@@ -61,7 +61,12 @@ namespace TagsTool
         private void SaveConfig()
         {
             string jsonContent = JsonSerializer.Serialize(Config, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(CONFIG_FILE_PATH, jsonContent);
+            //File.WriteAllText(CONFIG_FILE_PATH, jsonContent);
+            using (var fs = new FileStream(CONFIG_FILE_PATH, FileMode.Create, FileAccess.Write, FileShare.Read))
+            using (var writer = new StreamWriter(fs))
+            {
+                writer.Write(jsonContent);
+            }
             Console.WriteLine($"JSON 已写入文件：[{CONFIG_FILE_PATH}]");
         }
 
@@ -212,7 +217,6 @@ namespace TagsTool
             _remoteTagList.Clear();
             _remoteBranchList.Clear();
             _cts?.Cancel();
-            _cts?.Dispose();
             _fetchGitDetail = false;
         }
 

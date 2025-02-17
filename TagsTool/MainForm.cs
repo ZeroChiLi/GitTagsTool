@@ -12,6 +12,7 @@ namespace TagsTool
         public string CurTagPrefix;
         public string CurVersion;
         public string CurTag { set { TagTextBox.Text = value; } get { return TagTextBox.Text; } }
+        private ulong _statusIdx = 0;
 
         public MainForm()
         {
@@ -301,7 +302,6 @@ namespace TagsTool
         private async void UpdateTagListAsync(List<string> tagList)
         {
             _cts?.Cancel();
-            _cts?.Dispose();
             _cts = new CancellationTokenSource();
             CancellationToken token = _cts.Token;
 
@@ -312,10 +312,11 @@ namespace TagsTool
                 TagListView.Items.Add(new ListViewItem(new string[] { tag, "...", "...", "..." }, -1));
             }
             await ThreadSleepWithTime();
+            ulong fetchStatusIdx = 0;
             if (!_fetchGitDetail)
             {
                 // 拉取所有tag详细信息
-                UpdateStatusLabel($"正在拉取tag信息[git fetch --tags]", Color.Red);
+                fetchStatusIdx = UpdateStatusLabel($"[不影响打tag] 正在拉取tag提交日志[git fetch --tags]");
                 await ThreadSleepWithTime();
                 await Task.Run(() =>
                 {
@@ -331,7 +332,7 @@ namespace TagsTool
             {
                 if (token.IsCancellationRequested) return;
                 int index = i;  // 避免闭包问题
-                UpdateStatusLabel($"正在加载tag({CurTagPrefix})信息[{i + 1}/{count}]");
+                //UpdateStatusLabel($"正在加载tag({CurTagPrefix})信息[{i + 1}/{count}]");
                 await Task.Run(() =>
                 {
                     if (token.IsCancellationRequested) return;
@@ -357,7 +358,9 @@ namespace TagsTool
                 }, token);
             }
             TagListView.Sort();
-            UpdateStatusLabel($"加载tag({CurTagPrefix})信息[{count}]完成", Color.Green);
+            // 暴力判断状态是否有被打断
+             if (fetchStatusIdx == _statusIdx)
+                UpdateStatusLabel($"加载tag({CurTagPrefix})信息[{count}]完成", Color.Green);
         }
 
         // 8个数字 “25021707” -> “25021708”
@@ -486,17 +489,19 @@ namespace TagsTool
             UpdateStatusLabel($"打Tag失败：分支：[{CurBranch}] Tag：[{CurTag}]，点击菜单[帮助/日志]查看详情", Color.Red);
         }
 
-        private void UpdateStatusLabel(string info)
+        private ulong UpdateStatusLabel(string info)
         {
-            UpdateStatusLabel(info, SystemColors.ControlText);
+            return UpdateStatusLabel(info, SystemColors.ControlText);
         }
 
         // 刷新状态栏信息
-        private void UpdateStatusLabel(string info, Color color)
+        private ulong UpdateStatusLabel(string info, Color color)
         {
+            ++_statusIdx;
             StatusLabel.ForeColor = color;
             StatusLabel.Text = info;
             DebugLog(info);
+            return _statusIdx;
         }
 
         // 获取当前分支版本号

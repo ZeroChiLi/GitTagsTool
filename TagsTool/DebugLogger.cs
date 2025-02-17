@@ -9,6 +9,7 @@ namespace TagsTool
 {
     internal class DebugLogger
     {
+        private static string REAL_PROPS_FOLDER_PATH;
         public const string PROPS_FOLDER_PATH = @"%userprofile%\appdata\local\TagsTool";
         private static string _logFilePath;
         private static readonly object _logLock = new object();
@@ -16,8 +17,13 @@ namespace TagsTool
         {
             get
             {
+                if (string.IsNullOrEmpty(REAL_PROPS_FOLDER_PATH))
+                    REAL_PROPS_FOLDER_PATH = Environment.ExpandEnvironmentVariables(PROPS_FOLDER_PATH);
+                if (!Directory.Exists(REAL_PROPS_FOLDER_PATH))
+                    Directory.CreateDirectory(REAL_PROPS_FOLDER_PATH);
+                
                 if (string.IsNullOrEmpty(_logFilePath))
-                    _logFilePath = $"{Environment.ExpandEnvironmentVariables(PROPS_FOLDER_PATH)}\\~tags_tool_log.txt";
+                    _logFilePath = $"{REAL_PROPS_FOLDER_PATH}\\~tags_tool_log.txt";
                 return _logFilePath;
             }
         }
